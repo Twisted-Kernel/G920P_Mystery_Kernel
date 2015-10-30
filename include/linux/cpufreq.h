@@ -400,6 +400,10 @@ extern struct cpufreq_governor cpufreq_gov_performance;
 #ifdef CONFIG_CPU_FREQ_GOV_INTERACTIVE
 extern unsigned int cpufreq_interactive_get_hispeed_freq(int cpu);
 #endif
+#ifdef CONFIG_CPU_FREQ_GOV_CAFACTIVE
+extern unsigned int cpufreq_cafactive_get_hispeed_freq(int cpu);
+extern void cafactive_boost_ondemand(int cpu, s64 miliseconds, bool static_switch);
+#endif
 #ifdef CONFIG_CPU_FREQ_DEFAULT_GOV_PERFORMANCE
 #define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_performance)
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_POWERSAVE)
@@ -435,6 +439,9 @@ extern struct cpufreq_governor cpufreq_gov_alucard;
 #elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_WHEATLEY)
 extern struct cpufreq_governor cpufreq_gov_wheatley;
 #define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_wheatley)
+#elif defined(CONFIG_CPU_FREQ_DEFAULT_GOV_CAFACTIVE)
+extern struct cpufreq_governor cpufreq_gov_cafactive;
+#define CPUFREQ_DEFAULT_GOVERNOR	(&cpufreq_gov_cafactive)
 #endif
 
 
