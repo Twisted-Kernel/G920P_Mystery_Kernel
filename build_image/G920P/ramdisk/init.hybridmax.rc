@@ -1,0 +1,24 @@
+on boot
+	
+# Google Play Services Fix
+	pm enable com.google.android.gms/.update.SystemUpdateActivity
+	pm enable com.google.android.gms/.update.SystemUpdateService
+	pm enable com.google.android.gms/.update.SystemUpdateService$ActiveReceiver
+	pm enable com.google.android.gms/.update.SystemUpdateService$Receiver
+	pm enable com.google.android.gms/.update.SystemUpdateService$SecretCodeReceiver
+	pm enable com.google.android.gsf/.update.SystemUpdateActivity
+	pm enable com.google.android.gsf/.update.SystemUpdatePanoActivity
+	pm enable com.google.android.gsf/.update.SystemUpdateService
+	pm enable com.google.android.gsf/.update.SystemUpdateService$Receiver
+	pm enable com.google.android.gsf/.update.SystemUpdateService$SecretCodeReceiver
+
+# Do not kill your battery while charging at night
+	write /sys/devices/battery.52/power_supply/battery/store_mode 1
+	
+# Ensure some kernel boot defaults are set
+	# Set optimistic
+	write /proc/sys/net/ipv6/conf/all/optimistic_dad 1
+	write /proc/sys/net/ipv6/conf/all/use_optimistic 1
+
+# Set UKSM CPU governor
+	write /sys/kernel/mm/uksm/cpu_governor low
