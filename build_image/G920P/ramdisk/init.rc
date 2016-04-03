@@ -66,6 +66,7 @@ on init
 
     mkdir /.system
     mkdir /system
+    mkdir /su 0755 root root # create mount point for SuperSU
     mkdir /data 0771 system system
     mkdir /cache 0770 system cache
     mkdir /config 0500 root root
@@ -1652,3 +1653,17 @@ on property:service.vpnclientd.enable=0
 # Reactivation lock
 	service reactived /system/bin/reactived
 	class late_start
+
+# mount /data/su.img to /su
+on property:sukernel.mount=1
+    mount ext4 loop@/data/su.img /su noatime
+
+# launch SuperSU daemon
+service daemonsu /sbin/launch_daemonsu.sh
+    class late_start
+    user root
+    seclabel u:r:init:s0
+    oneshot
+
+# SuperSU:PATCH:268
+# SuperSU:STOCK:244e0424f941897ff9a3bd73cce60d36edc2858b
