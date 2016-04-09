@@ -877,6 +877,14 @@ config USB_DUN_SUPPORT
 	  It uses misc register.
 	  Support fops : open, close, release, read, poll, llseek, ioctl
 
+config USB_ANDROID_HID_GADGET
+	boolean "HID Gadget"
+	depends on USB_G_ANDROID
+	help
+	  The HID Gadget acts as both a USB Keyboard and USB Mouse
+	  device. It allows the android device to send key strokes
+	  or mouse movement commands to the connected host.
+
 config USB_NCM_SUPPORT_MTU_CHANGE
 	boolean "Samsung NCM MTU Change function"
 	depends on USB_G_ANDROID
