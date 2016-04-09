@@ -1,0 +1,15 @@
+kernel.turbo=false
+kernel.initd=true
+kernel.interactive=battery
+kernel.scheduler=row
+kernel.governor=interactive
+kernel.cpu.a53.min=200000
+kernel.cpu.a53.max=1200000
+kernel.cpu.a57.min=200000
+kernel.cpu.a57.max=1800000
+kernel.tcp.cong=westwood
+kernel.vm=tuned
+kernel.archpower=false
+kernel.gentlefairsleepers=false
+kernel.gapps=true
+kernel.knox=false
