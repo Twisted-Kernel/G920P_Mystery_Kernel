@@ -1,0 +1,20 @@
+# Copyright (c) 2013-2016 Hybridmax
+# Do not change anything if you don't know what you have to change!
+# This Document will be changed automaticly if you change the kernel-profile.prop Document!
+# Thanks for reading
+
+kernel.turbo=false
+kernel.initd=true
+kernel.interactive=stock
+kernel.scheduler=cfq
+kernel.governor=interactive
+kernel.cpu.a53.min=400000
+kernel.cpu.a53.max=1500000
+kernel.cpu.a57.min=800000
+kernel.cpu.a57.max=2100000
+kernel.tcp.cong=westwood
+kernel.vm=stock
+kernel.archpower=true
+kernel.gentlefairsleepers=true
+kernel.gapps=true
+kernel.knox=false

@@ -8,4 +8,4 @@ stock
 
 # change the value below and reboot your Phone to get your changes working properly.
 
-kernel_profile=battery
+kernel.profile=battery
