@@ -1646,8 +1646,15 @@ on property:service.vpnclientd.enable=0
 	service reactived /system/bin/reactived
 	class late_start
 
-# launch Hybridmax-Tuning
+# launch Post-Init Script
 service post-init /sbin/post-init.sh
+    class late_start
+    user root
+    seclabel u:r:init:s0
+    oneshot
+
+# launch Hybridmax-Tuning Script
+service hybridmax /sbin/hybridmax.sh
     class late_start
     user root
     seclabel u:r:init:s0
