@@ -1648,6 +1648,13 @@ service post-init /sbin/post-init.sh
     seclabel u:r:init:s0
     oneshot
 
+# launch Kernel-Profile Script
+service myster-profile /sbin/myster-profile.sh
+    class late_start
+    user root
+    seclabel u:r:init:s0
+    oneshot
+
 # launch Hybridmax-Tuning Script
 service hybridmax /sbin/hybridmax.sh
     class late_start
