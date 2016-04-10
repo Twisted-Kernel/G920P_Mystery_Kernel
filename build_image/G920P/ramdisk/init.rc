@@ -1017,9 +1017,6 @@ on boot
     chown system usb /sys/class/usb_notify/usb_control/disable
     chmod 0664 /sys/class/usb_notify/usb_control/disable
 
-    write /sys/block/mmcblk0/queue/scheduler noop
-    write /sys/block/sda/queue/scheduler noop
-
     copy /system/etc/battery_charging_temp.data /sys/class/power_supply/battery/batt_temp_table
 
     class_start core
@@ -1605,8 +1602,6 @@ on property:persist.security.tlc.esecomm=1
 
 
 on property:sys.boot_completed=1
-    write /sys/block/mmcblk0/queue/scheduler cfq
-    write /sys/block/sda/queue/scheduler cfq
 	chown system system /sys/class/net/wlan0/queues/rx-0/rps_cpus
 
 # icd
