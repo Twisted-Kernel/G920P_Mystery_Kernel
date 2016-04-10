@@ -22,7 +22,7 @@ export HYBRIDVER="-$KERNELNAME"
 # Toolchains
 
 #LINARO
-BCC=$TOOLCHAIN_DIR/linaro-aarch64_4.9/bin/aarch64-linux-gnu-
+#BCC=$TOOLCHAIN_DIR/linaro-aarch64_4.9/bin/aarch64-linux-gnu-
 
 #SABERMOD
 #BCC=$TOOLCHAIN_DIR/sm-aarch64_5.3/bin/aarch64-
@@ -31,8 +31,8 @@ BCC=$TOOLCHAIN_DIR/linaro-aarch64_4.9/bin/aarch64-linux-gnu-
 #BCC=$TOOLCHAIN_DIR/aarch64_4.9/bin/aarch64-linux-android-
 
 #UBER
-#BCC=$TOOLCHAIN_DIR/uber-aarch64-5.3/bin/aarch64-linux-android-
-#BCC=$TOOLCHAIN_DIR/uber-aarch64-6.0/bin/aarch64-linux-android-
+#BCC=$TOOLCHAIN_DIR/uber-aarch64_5.3/bin/aarch64-linux-android-
+BCC=$TOOLCHAIN_DIR/uber-aarch64_6.0/bin/aarch64-linux-android-
 
 #########################################################################################
 # Cleanup old files from build environment
