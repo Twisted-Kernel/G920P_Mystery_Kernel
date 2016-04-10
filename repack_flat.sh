@@ -20,12 +20,6 @@ export HYBRIDVER="$DEVELOPER-Kernel-$DEVICE-$VERSION_NUMBER-($CURDATE)"
 export KERNEL_NAME="$HYBRIDVER"
 
 #########################################################################################
-# Clean old zip & tar Files
-
-rm -rf $BUILD_IMG/output_kernel/Mystery-Kernel-S6-MM-*.tar
-rm -rf $BUILD_IMG/output_kernel/Mystery-Kernel-S6-MM-*.zip
-
-#########################################################################################
 # Copy Modules & Image
 
 echo "Copy Modules............................"
