@@ -14,21 +14,21 @@ $BB mount -o remount,rw /data;
 # Battery
 if [ "`grep "kernel.profile=battery" $PROFILE`" != "" ]; then
 	rm -rf $USERPROP
-	cp /sbin/profiles/battery/kernel.prop $PROFILE
+	cp /sbin/profiles/battery/kernel.prop $USERPROP
 fi
 
 ###############################################################################
 # Performance
 if [ "`grep "kernel.profile=performance" $PROFILE`" != "" ]; then
 	rm -rf $USERPROP
-	cp /sbin/profiles/performance/kernel.prop $PROFILE
+	cp /sbin/profiles/performance/kernel.prop $USERPROP
 fi
 
 ###############################################################################
 # Stock
 if [ "`grep "kernel.profile=stock" $PROFILE`" != "" ]; then
 	rm -rf $USERPROP
-	cp /sbin/profiles/stock/kernel.prop $PROFILE
+	cp /sbin/profiles/stock/kernel.prop $USERPROP
 fi
 
 $BB mount -t rootfs -o remount,ro rootfs;
