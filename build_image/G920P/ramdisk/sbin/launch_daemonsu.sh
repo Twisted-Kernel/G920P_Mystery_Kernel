@@ -27,10 +27,12 @@ if [ ! -d "/su/bin" ]; then
   # only used if recovery couldn't mount /data
   if [ -f "/cache/su.img" ]; then
     log_print "/cache/su.img found"
-
+    e2fsck -p /cache/su.img
     OVERWRITE=true
 
     if [ -f "/data/su.img" ]; then
+      e2fsck -p /data/su.img
+
       # attempt merge, this will fail pre-M
       # will probably also fail with /system installed busybox,
       # but then again, is there anything busybox doesn't break?
@@ -142,6 +144,7 @@ if [ ! -d "/su/bin" ]; then
   # trigger mount, also works pre-M
   chcon u:object_r:system_data_file:s0 /data/su.img
   chmod 0600 /data/su.img
+  e2fsck -p /data/su.img
   setprop sukernel.mount 1
   sleep 1
 
