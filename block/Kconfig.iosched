@@ -60,6 +60,10 @@ config IOSCHED_TRIPNDROID
 
 config IOSCHED_SIOPLUS
 	tristate "Simple I/O scheduler plus"
+
+config IOSCHED_SIO
+	tristate "Simple I/O scheduler"
+
 	default y
 	---help---
 	  The Simple I/O scheduler is an extremely simple scheduler,
@@ -128,6 +132,9 @@ choice
 	config DEFAULT_CFQ
 		bool "CFQ" if IOSCHED_CFQ=y
 
+	config DEFAULT_SIO
+		bool "SIO" if IOSCHED_SIO=y
+
 	config DEFAULT_NOOP
 		bool "No-op"
 
@@ -153,6 +160,7 @@ config DEFAULT_IOSCHED
 	default "cfq" if DEFAULT_CFQ
 	default "bfq" if DEFAULT_BFQ
 	default "noop" if DEFAULT_NOOP
+	default "sio" if DEFAULT_SIO
 
 endmenu
 
