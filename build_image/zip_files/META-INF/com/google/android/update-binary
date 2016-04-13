@@ -6,9 +6,8 @@
 OUTFD=$2
 ZIP=$3
 SYSTEM=/tmp/hybridmax/system
+DATA=/tmp/hybridmax/data
 PROP=/tmp/hybridmax/mystery.prop
-SYSTEMPROP=/tmp/hybridmax/kernel.prop
-PROFILE=/tmp/hybridmax/kernel-profile.prop
 
 ui_print() {
   echo -n -e "ui_print $1\n" > /proc/self/fd/$OUTFD
@@ -101,20 +100,33 @@ rm -rf *app/UniversalMDMClient*
 rm -rf container/*Knox*
 rm -rf container/*KNOX*
 
-ui_print " - Placing System Files"
+ui_print " - Placing Files"
 ui_print " "
-cp_perm 0 0 0755 $SYSTEM/xbin/busybox /system/xbin/busybox
+
+mkdir -p /data/app/KernelToolkit
+set_perm 0 0 0755 /data/app/KernelToolkit
+cp_perm 0 0 0644 $DATA/app/KernelToolkit.apk /data/app/KernelToolkit/base.apk
+
 cp_perm 0 0 0755 $SYSTEM/xbin/ext4 /system/xbin/ext4
 cp_perm 0 0 0755 $SYSTEM/xbin/fstrim /system/xbin/fstrim
 cp_perm 0 0 0755 $SYSTEM/xbin/tune2fs /system/xbin/tune2fs
 cp_perm 0 0 0755 $SYSTEM/xbin/zip /system/xbin/zip
+
 cp_perm 0 0 0755 $SYSTEM/etc/init.d/0hybridmax /system/etc/init.d/0hybridmax
 rm -rf /system/lib/modules/*.ko
 cp_perm 0 0 0755 $SYSTEM/lib/modules/*.ko /system/lib/modules/*.ko
-cp_perm 0 0 0755 $SYSTEMPROP /system/kernel.prop
-mkdir -p /data/media/0/mystery-kernel
-cp_perm 0 0 0755 $SYSTEMPROP /data/media/0/mystery-kernel/kernel.prop
-cp_perm 0 0 0755 $PROFILE /data/media/0/mystery-kernel/kernel-profile.prop
+
+if [ -e /su/xbin ]; then
+	rm -rf /system/xbin/busybox
+	rm -rf /su/xbin/busybox
+	cp_perm 0 0 0755 $SYSTEM/xbin/busybox /su/xbin/busybox
+	/su/xbin/busybox --install /su/xbin
+else
+	rm -rf /system/xbin/busybox
+	rm -rf /su/xbin/busybox
+	cp_perm 0 0 0755 $SYSTEM/xbin/busybox /system/xbin/busybox
+	/system/xbin/busybox --install /system/xbin
+fi
 
 cp_perm 0 0 0644 $PROP /system/vendor/build.prop
 
