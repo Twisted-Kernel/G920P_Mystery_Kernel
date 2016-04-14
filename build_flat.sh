@@ -31,8 +31,8 @@ export HYBRIDVER="-$KERNELNAME"
 #BCC=$TOOLCHAIN_DIR/aarch64_4.9/bin/aarch64-linux-android-
 
 #UBER
-BCC=$TOOLCHAIN_DIR/uber-aarch64_5.3/bin/aarch64-linux-android-
-#BCC=$TOOLCHAIN_DIR/uber-aarch64_6.0/bin/aarch64-linux-android-
+#BCC=$TOOLCHAIN_DIR/uber-aarch64_5.3/bin/aarch64-linux-android-
+BCC=$TOOLCHAIN_DIR/uber-aarch64_6.0/bin/aarch64-linux-android-
 
 #########################################################################################
 # Cleanup old files from build environment
