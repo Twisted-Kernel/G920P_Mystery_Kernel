@@ -124,6 +124,22 @@ fi;
 #echo "15000"	> /sys/devices/system/cpu/cpu4/cpufreq/interactive/timer_rate;
 
 #####################################################################
+# Set UKSM Governor
+
+echo "low" > /sys/kernel/mm/uksm/cpu_governor;
+
+#####################################################################
+# Tune entropy parameters
+
+echo "512" > /proc/sys/kernel/random/read_wakeup_threshold;
+echo "256" > /proc/sys/kernel/random/write_wakeup_threshold;
+
+#####################################################################
+# Set default Internal Storage Readahead
+
+echo "256" > /sys/block/sda/queue/read_ahead_kb;
+
+#####################################################################
 # Default IO Scheduler
 
 echo "sioplus" > /sys/block/mmcblk0/queue/scheduler;
@@ -174,8 +190,8 @@ echo "interactive" > /sys/devices/14ac0000.mali/dvfs_governor;
 
 #####################################################################
 # GPU CLOCK
-echo "266" > /sys/devices/platform/gpusysfs/gpu_min_clock;
-echo "772" > /sys/devices/platform/gpusysfs/gpu_max_clock;
+echo "100" > /sys/devices/platform/gpusysfs/gpu_min_clock;
+echo "852" > /sys/devices/platform/gpusysfs/gpu_max_clock;
 
 #####################################################################
 # Default TCP Congestion Controller
@@ -199,23 +215,6 @@ echo "0" > /sys/kernel/sched/gentle_fair_sleepers;
 #$BB chmod -R 755 /res/*;
 #$BB ln -fs /res/synapse/uci /sbin/uci;
 #/sbin/uci;
-
-#####################################################################
-# Enable Init.d Support
-
-if [ "$($BB mount | grep rootfs | cut -c 26-27 | grep -c ro)" -eq "1" ]; then
-	$BB mount -o remount,rw /;
-fi;
-if [ "$($BB mount | grep system | grep -c ro)" -eq "1" ]; then
-	$BB mount -o remount,rw /system;
-fi;
-if [ ! -d /system/etc/init.d ]; then
-	mkdir -p /system/etc/init.d/;
-	chown -R root.root /system/etc/init.d;
-	chmod 777 /system/etc/init.d/;
-	chmod 777 /system/etc/init.d/*;
-fi;
-$BB run-parts /system/etc/init.d;
 
 #####################################################################
 # Google Services battery drain fixer by Alcolawl@xda

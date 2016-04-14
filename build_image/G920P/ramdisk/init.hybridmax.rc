@@ -82,6 +82,13 @@ on boot
 # Set UKSM CPU governor
 	write /sys/kernel/mm/uksm/cpu_governor low
 
+# Tune entropy parameters
+	write /proc/sys/kernel/random/read_wakeup_threshold 512
+	write /proc/sys/kernel/random/write_wakeup_threshold 256
+
+# Set default Internal Storage Readahead
+	write /sys/block/sda/queue/read_ahead_kb 256
+
 # Set default Internal Storage scheduler
 	write /sys/block/mmcblk0/queue/scheduler sioplus
 	write /sys/block/sda/queue/scheduler sioplus
@@ -114,10 +121,10 @@ on boot
 	write /sys/devices/14ac0000.mali/dvfs_governor interactive
 
 # Set default GPU MIN CLOCK
-	write /sys/devices/platform/gpusysfs/gpu_min_clock 266
+	write /sys/devices/platform/gpusysfs/gpu_min_clock 100
 
 # Set default GPU MAX CLOCK
-	write /sys/devices/platform/gpusysfs/gpu_max_clock 772
+	write /sys/devices/platform/gpusysfs/gpu_max_clock 852
 
 # Set default TCP Congestion Controller
 	write /proc/sys/net/ipv4/tcp_congestion_control westwood
@@ -135,3 +142,14 @@ on property:service.adb.tcp.port=5555
 on property:service.adb.tcp.port=-1
     stop adbd
     start adbd
+
+# Start init.d Scripts on boot
+on property:sys.boot_completed=1
+    start sysinit
+    
+service sysinit /sbin/sysinit.sh
+    oneshot
+    class late_start
+    user root
+    group root
+    disabled
