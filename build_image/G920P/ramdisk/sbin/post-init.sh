@@ -93,8 +93,8 @@ fi;
 #####################################################################
 # Disable Turbo Mode
 
-echo "1" > /sys/devices/system/cpu/cpu0/cpufreq/interactive/enforced_mode;
-echo "1" > /sys/devices/system/cpu/cpu4/cpufreq/interactive/enforced_mode;
+echo "0" > /sys/devices/system/cpu/cpu0/cpufreq/interactive/enforced_mode;
+echo "0" > /sys/devices/system/cpu/cpu4/cpufreq/interactive/enforced_mode;
 
 #####################################################################
 # Fix for earphone / handsfree no in-call audio
