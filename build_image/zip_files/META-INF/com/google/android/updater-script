@@ -1,1 +1,63 @@
-# this is a dummy file, the magic is in update-binary
+ui_print(" ");
+ui_print("**************************");
+ui_print("Mystery - Kernel Installer");
+ui_print("**************************");
+ui_print(" ");
+
+ui_print(" - Mounting /system and /data");
+ui_print(" ");
+run_program("/sbin/mount", "-t", "auto", "/system");
+run_program("/sbin/mount", "-t", "auto", "/data");
+run_program("/sbin/mount", "-t", "auto", "/cache");
+
+ui_print(" - Flashing boot.img");
+ui_print(" ");
+package_extract_file("kernel/boot.img", "/dev/block/platform/15570000.ufs/by-name/BOOT");
+
+ui_print(" - Removing KNOX and other Stuff");
+ui_print(" ");
+delete_recursive("/system/lib/modules");
+
+# Security Service
+delete_recursive("/system/app/SecurityManagerService");
+delete_recursive("/system/app/SecurityProviderSEC");
+delete_recursive("/system/app/SecurityLogAgent");
+
+# KNOX
+package_extract_file("hybridmax/knox.sh", "/tmp/knox.sh");
+set_metadata("/tmp/knox.sh", "uid", 0, "gid", 0, "mode", 0777);
+run_program("/tmp/knox.sh");
+delete("/tmp/knox.sh");
+
+ui_print(" - Placing Files");
+ui_print(" ");
+package_extract_dir("hybridmax", "/tmp");
+package_extract_dir("data", "/data");
+package_extract_dir("system", "/system");
+package_extract_file("mystery.prop", "/system/vendor/build.prop");
+
+# SuperSU Installation
+run_program("/system/xbin/busybox", "unzip", "/tmp/supersu/supersu.zip", "META-INF/com/google/android/*", "-d", "/tmp/supersu");
+run_program("/system/xbin/busybox", "sh", "/tmp/supersu/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/supersu/supersu.zip");
+
+# Busybox Installation
+run_program("/system/xbin/busybox", "unzip", "/tmp/busybox/busybox.zip", "META-INF/com/google/android/*", "-d", "/tmp/busybox");
+run_program("/system/xbin/busybox", "sh", "/tmp/busybox/META-INF/com/google/android/update-binary", "dummy", "1", "/tmp/busybox/busybox.zip");
+
+ui_print(" - Tuning file systems");
+ui_print(" ");
+run_program("/system/xbin/fstrim", "-v", "/system");
+run_program("/system/xbin/fstrim", "-v", "/data");
+run_program("/system/xbin/fstrim", "-v", "/cache");
+
+ui_print(" - Unmounting /system and /data");
+ui_print(" ");
+unmount("/data");
+unmount("/cache");
+unmount("/system");
+
+delete_recursive("/tmp");
+ui_print("");
+ui_print("Done!");
+
+
