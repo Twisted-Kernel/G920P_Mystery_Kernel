@@ -29,23 +29,23 @@ find -name '*.ko' -exec cp -av {} $MODULES_DIR \;
 
 echo "Copy Image.............................."
 echo " "
-cp $IMAGE_DIR/Image $BUILD_IMG/G920F/Image
+cp $IMAGE_DIR/Image $BUILD_IMG/G920P/Image
 #########################################################################################
 # DT.IMG Generation
 
-#clear
-#echo "Make DT.img............................"
-#echo " "
-#./tools/dtbtool -o $BUILD_IMG/G920F/dt.img -s 2048 -p ./scripts/dtc/ $DTS/ | sleep 1
+clear
+echo "Make DT.img............................"
+echo " "
+./tools/dtbtool -o $BUILD_IMG/G920P/dt.img -s 2048 -p ./scripts/dtc/ $DTS/ | sleep 1
 
 #########################################################################################
 # Calculate DTS size
 
-#du -k "$BUILD_IMG/G920F/dt.img" | cut -f1 >sizT
-#sizT=$(head -n 1 sizT)
-#rm -rf sizT
-#echo "dt.img: $sizT Kb"
-#echo " "
+du -k "$BUILD_IMG/G920P/dt.img" | cut -f1 >sizT
+sizT=$(head -n 1 sizT)
+rm -rf sizT
+echo "dt.img: $sizT Kb"
+echo " "
 
 #########################################################################################
 # Ramdisk Generation
@@ -54,7 +54,7 @@ echo "Make Ramdisk............................"
 echo " "
 cd $BUILD_IMG
 mkdir -p ramfs_tmp
-cp -a G920F/ramdisk/* ramfs_tmp
+cp -a G920P/ramdisk/* ramfs_tmp
 cp ramdisk_fix_permissions.sh ramfs_tmp/ramdisk_fix_permissions.sh
 chmod 0777 ramfs_tmp/ramdisk_fix_permissions.sh
 cd ramfs_tmp
@@ -63,13 +63,13 @@ rm -f ramdisk_fix_permissions.sh
 
 # ADB Fix
 rm -rf sbin/adbd
-cp -r ../G920F/patch/adbd_5.1.1 sbin/adbd
+cp -r ../G920P/patch/adbd_5.1.1 sbin/adbd
 
 find . | fakeroot cpio -H newc -o | lzop -9 > ../ramdisk.cpio.lzo
 
 cd ..
 
-mv ramdisk.cpio.lzo G920F
+mv ramdisk.cpio.lzo G920P
 
 rm -r ramfs_tmp
 
@@ -78,7 +78,7 @@ rm -r ramfs_tmp
 
 echo "Make boot.img..........................."
 echo " "
-cd G920F
+cd G920P
 ./../mkbootimg --kernel Image --ramdisk ramdisk.cpio.lzo --dt dt.img --base 0x10000000 --pagesize 2048 --ramdisk_offset 0x01000000 --tags_offset 0x00000100 --second_offset 0x00f00000 -o boot.img
 echo -n "SEANDROIDENFORCE" >> boot.img
 # copy the final boot.img to output directory ready for zipping
@@ -108,11 +108,11 @@ mv $KERNEL_NAME.zip ../output_kernel
 cd ../..
 echo "Make Clean.............................."
 echo " "
-rm -rf $BUILD_IMG/G920F/Image
-rm -rf $BUILD_IMG/G920F/kernel
-rm -rf $BUILD_IMG/G920F/ramdisk.cpio.*
-rm -rf $BUILD_IMG/G920F/boot.img
-#rm -rf $BUILD_IMG/G920F/dt.img
+rm -rf $BUILD_IMG/G920P/Image
+rm -rf $BUILD_IMG/G920P/kernel
+rm -rf $BUILD_IMG/G920P/ramdisk.cpio.*
+rm -rf $BUILD_IMG/G920P/boot.img
+#rm -rf $BUILD_IMG/G920P/dt.img
 rm -rf $BUILD_IMG/boot.img
 rm -rf $BUILD_IMG/ramdisk-cpio.*
 rm -rf $BUILD_IMG/zip_files/boot.img
