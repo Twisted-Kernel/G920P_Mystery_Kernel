@@ -36,7 +36,7 @@ cp $IMAGE_DIR/Image $BUILD_IMG/G920P/Image
 clear
 echo "Make DT.img............................"
 echo " "
-./tools/dtbtool -o $BUILD_IMG/G920P/dt.img -s 2048 -p ./scripts/dtc/ $DTS/ | sleep 1
+./utilities/dtbtool -o $BUILD_IMG/G920P/dt.img -s 2048 -p ./scripts/dtc/ $DTS/ | sleep 1
 
 #########################################################################################
 # Calculate DTS size
