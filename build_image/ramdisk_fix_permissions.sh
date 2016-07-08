@@ -8,7 +8,11 @@ chmod 644 default.prop
 chmod 771 data
 chmod 755 dev
 chmod 755 proc
-chmod 750 sbin
-chmod 750 sbin/*
+chmod 755 res
+chmod 755 res/*
+chmod 755 sbin
+chmod 755 sbin/*
 chmod 755 sys
 chmod 755 system
+cd sbin
+chmod 644 uci

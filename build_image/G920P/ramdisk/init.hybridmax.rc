@@ -145,6 +145,17 @@ on property:service.adb.tcp.port=-1
 
 # Start init.d Scripts on boot
 on property:sys.boot_completed=1
+    start hybridmax
+
+service hybridmax /sbin/hybridmax.sh
+    oneshot
+    class late_start
+    user root
+    group root
+    disabled
+
+# Start init.d Scripts on boot
+on property:sys.boot_completed=1
     start sysinit
     
 service sysinit /sbin/sysinit.sh
